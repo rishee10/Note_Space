@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-8">
+    <div class="card p-3">
+      <h3>Edit Note</h3>
+      <form method="post">
+        <input class="form-control mb-2" name="title" value="{{note.title}}" required>
+        <textarea class="form-control mb-2" name="content">{{note.content}}</textarea>
+        <input class="form-control mb-2" name="tags" value="{{note.tags}}" placeholder="Tags (comma-separated)">
+        <button class="btn btn-success">Update</button>
+        <a href="/notes" class="btn btn-secondary ms-2">Cancel</a>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+  <div class="col-md-4">
+    <div class="card p-3">
+      <h5>Add Note</h5>
+      <form method="post" action="/add-note">
+        <input class="form-control mb-2" name="title" placeholder="Title" required>
+        <textarea class="form-control mb-2" name="content" placeholder="Content"></textarea>
+        <input class="form-control mb-2" name="tags" placeholder="Tags (comma-separated)">
+        <button class="btn btn-primary w-100">Add</button>
+      </form>
+
+      <hr>
+      <h6>Tags</h6>
+      <form method="get" action="/notes" class="mb-2">
+        <div class="input-group">
+          <select class="form-select" name="tag">
+            <option value="">-- All tags --</option>
+            {% for t in tags %}
+              <option value="{{t}}" {% if selected_tag==t %}selected{% endif %}>{{t}}</option>
+            {% endfor %}
+          </select>
+          <button class="btn btn-outline-secondary">Filter</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="col-md-8">
+    <h4>Your Notes</h4>
+    {% if notes|length == 0 %}
+      <div class="alert alert-info">No notes yet.</div>
+    {% endif %}
+    {% for note in notes %}
+      <div class="card">
+        <div class="card-body">
+          <div class="d-flex justify-content-between">
+            <h5>{{ note.title }}</h5>
+            <div>
+              <a href="/edit/{{note.id}}" class="btn btn-sm btn-outline-secondary">Edit</a>
+              <a href="/delete/{{note.id}}" class="btn btn-sm btn-outline-danger">Delete</a>
+            </div>
+          </div>
+          <p class="card-text">{{ note.content }}</p>
+          {% if note.tags %}
+            <div>
+              {% for t in note.tags.split(",") %}
+                {% if t.strip() %}
+                  <span class="badge bg-secondary tag">{{ t.strip() }}</span>
+                {% endif %}
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
