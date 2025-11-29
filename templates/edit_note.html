@@ -1,9 +1,0 @@
-{% extends "base.html" %}
-{% block content %}
-<h2>Edit Note</h2>
-<form method="POST">
-  <input class="form-control" name="topic" value="{{note.topic}}"><br>
-  <textarea class="form-control" name="description">{{note.description}}</textarea><br>
-  <button class="btn btn-success">Update</button>
-</form>
-{% endblock %}
